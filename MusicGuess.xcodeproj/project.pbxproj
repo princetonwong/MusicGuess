@@ -7,19 +7,78 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06D9AD2A287EB39300F2D2EA /* MusicGuessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD29287EB39300F2D2EA /* MusicGuessApp.swift */; };
-		06D9AD2C287EB39300F2D2EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD2B287EB39300F2D2EA /* ContentView.swift */; };
+		06CD2E2228813A07005D484E /* RandomNumberGeneratorWithSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */; };
+		06CD2E2428813C63005D484E /* ProminentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2328813C63005D484E /* ProminentButtonStyle.swift */; };
+		06CD2E2728813E43005D484E /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2628813E43005D484E /* WelcomeView.swift */; };
+		06CD2E2928813FFA005D484E /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2828813FFA005D484E /* AppStorage.swift */; };
+		06CD2E2B2881727E005D484E /* GamePlayAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2A2881727E005D484E /* GamePlayAnswerView.swift */; };
+		06CD2E2D28817306005D484E /* Song+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2C28817306005D484E /* Song+Styles.swift */; };
+		06CD2E2F28817489005D484E /* BlueSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2E28817489005D484E /* BlueSlide.swift */; };
 		06D9AD2E287EB39400F2D2EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06D9AD2D287EB39400F2D2EA /* Assets.xcassets */; };
 		06D9AD32287EB39400F2D2EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06D9AD31287EB39400F2D2EA /* Preview Assets.xcassets */; };
+		06D9AD7B2881388A00F2D2EA /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD642881388A00F2D2EA /* AppState.swift */; };
+		06D9AD7C2881388A00F2D2EA /* Clue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD662881388A00F2D2EA /* Clue.swift */; };
+		06D9AD7D2881388A00F2D2EA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD672881388A00F2D2EA /* Game.swift */; };
+		06D9AD7E2881388A00F2D2EA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD682881388A00F2D2EA /* Category.swift */; };
+		06D9AD7F2881388A00F2D2EA /* ErrorAlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD692881388A00F2D2EA /* ErrorAlertItem.swift */; };
+		06D9AD802881388A00F2D2EA /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD6A2881388A00F2D2EA /* Player.swift */; };
+		06D9AD812881388A00F2D2EA /* ClueSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD6B2881388A00F2D2EA /* ClueSet.swift */; };
+		06D9AD822881388A00F2D2EA /* APGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD6C2881388A00F2D2EA /* APGameViewModel.swift */; };
+		06D9AD832881388A00F2D2EA /* MusicGuessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD6D2881388A00F2D2EA /* MusicGuessApp.swift */; };
+		06D9AD842881388A00F2D2EA /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD6E2881388A00F2D2EA /* LanguageManager.swift */; };
+		06D9AD852881388A00F2D2EA /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD6F2881388A00F2D2EA /* MusicManager.swift */; };
+		06D9AD862881388A00F2D2EA /* APGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD712881388A00F2D2EA /* APGameView.swift */; };
+		06D9AD872881388A00F2D2EA /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD722881388A00F2D2EA /* LeaderboardView.swift */; };
+		06D9AD882881388A00F2D2EA /* GamePlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD732881388A00F2D2EA /* GamePlayView.swift */; };
+		06D9AD892881388A00F2D2EA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD742881388A00F2D2EA /* RootView.swift */; };
+		06D9AD8A2881388A00F2D2EA /* PlayerConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD752881388A00F2D2EA /* PlayerConfigView.swift */; };
+		06D9AD8B2881388A00F2D2EA /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD762881388A00F2D2EA /* BackgroundView.swift */; };
+		06D9AD8C2881388A00F2D2EA /* ClueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD772881388A00F2D2EA /* ClueView.swift */; };
+		06D9AD8D2881388A00F2D2EA /* PlayerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD782881388A00F2D2EA /* PlayerCellView.swift */; };
+		06D9AD8E2881388A00F2D2EA /* APBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD792881388A00F2D2EA /* APBoardView.swift */; };
+		06D9AD8F2881388A00F2D2EA /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06D9AD7A2881388A00F2D2EA /* Impact.ttf */; };
+		06D9AD94288138FD00F2D2EA /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD91288138FD00F2D2EA /* CustomColors.swift */; };
+		06D9AD95288138FD00F2D2EA /* View+Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD92288138FD00F2D2EA /* View+Scales.swift */; };
+		06D9AD96288138FD00F2D2EA /* ControlStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9AD93288138FD00F2D2EA /* ControlStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGeneratorWithSeed.swift; sourceTree = "<group>"; };
+		06CD2E2328813C63005D484E /* ProminentButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProminentButtonStyle.swift; sourceTree = "<group>"; };
+		06CD2E2528813CEB005D484E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		06CD2E2628813E43005D484E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		06CD2E2828813FFA005D484E /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
+		06CD2E2A2881727E005D484E /* GamePlayAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayAnswerView.swift; sourceTree = "<group>"; };
+		06CD2E2C28817306005D484E /* Song+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Styles.swift"; sourceTree = "<group>"; };
+		06CD2E2E28817489005D484E /* BlueSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueSlide.swift; sourceTree = "<group>"; };
 		06D9AD26287EB39300F2D2EA /* MusicGuess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGuess.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		06D9AD29287EB39300F2D2EA /* MusicGuessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicGuessApp.swift; sourceTree = "<group>"; };
-		06D9AD2B287EB39300F2D2EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		06D9AD2D287EB39400F2D2EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06D9AD2F287EB39400F2D2EA /* MusicGuess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicGuess.entitlements; sourceTree = "<group>"; };
 		06D9AD31287EB39400F2D2EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		06D9AD642881388A00F2D2EA /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		06D9AD662881388A00F2D2EA /* Clue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
+		06D9AD672881388A00F2D2EA /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		06D9AD682881388A00F2D2EA /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		06D9AD692881388A00F2D2EA /* ErrorAlertItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlertItem.swift; sourceTree = "<group>"; };
+		06D9AD6A2881388A00F2D2EA /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		06D9AD6B2881388A00F2D2EA /* ClueSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClueSet.swift; sourceTree = "<group>"; };
+		06D9AD6C2881388A00F2D2EA /* APGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APGameViewModel.swift; sourceTree = "<group>"; };
+		06D9AD6D2881388A00F2D2EA /* MusicGuessApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicGuessApp.swift; sourceTree = "<group>"; };
+		06D9AD6E2881388A00F2D2EA /* LanguageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		06D9AD6F2881388A00F2D2EA /* MusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
+		06D9AD712881388A00F2D2EA /* APGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APGameView.swift; sourceTree = "<group>"; };
+		06D9AD722881388A00F2D2EA /* LeaderboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		06D9AD732881388A00F2D2EA /* GamePlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayView.swift; sourceTree = "<group>"; };
+		06D9AD742881388A00F2D2EA /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		06D9AD752881388A00F2D2EA /* PlayerConfigView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerConfigView.swift; sourceTree = "<group>"; };
+		06D9AD762881388A00F2D2EA /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		06D9AD772881388A00F2D2EA /* ClueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClueView.swift; sourceTree = "<group>"; };
+		06D9AD782881388A00F2D2EA /* PlayerCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCellView.swift; sourceTree = "<group>"; };
+		06D9AD792881388A00F2D2EA /* APBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APBoardView.swift; sourceTree = "<group>"; };
+		06D9AD7A2881388A00F2D2EA /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
+		06D9AD91288138FD00F2D2EA /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		06D9AD92288138FD00F2D2EA /* View+Scales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Scales.swift"; sourceTree = "<group>"; };
+		06D9AD93288138FD00F2D2EA /* ControlStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,10 +111,20 @@
 		06D9AD28287EB39300F2D2EA /* MusicGuess */ = {
 			isa = PBXGroup;
 			children = (
-				06D9AD29287EB39300F2D2EA /* MusicGuessApp.swift */,
-				06D9AD2B287EB39300F2D2EA /* ContentView.swift */,
+				06CD2E2528813CEB005D484E /* Info.plist */,
 				06D9AD2D287EB39400F2D2EA /* Assets.xcassets */,
 				06D9AD2F287EB39400F2D2EA /* MusicGuess.entitlements */,
+				06D9AD6D2881388A00F2D2EA /* MusicGuessApp.swift */,
+				06D9AD6C2881388A00F2D2EA /* APGameViewModel.swift */,
+				06D9AD642881388A00F2D2EA /* AppState.swift */,
+				06CD2E2828813FFA005D484E /* AppStorage.swift */,
+				06D9AD6E2881388A00F2D2EA /* LanguageManager.swift */,
+				06D9AD6F2881388A00F2D2EA /* MusicManager.swift */,
+				06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */,
+				06D9AD7A2881388A00F2D2EA /* Impact.ttf */,
+				06D9AD652881388A00F2D2EA /* Model */,
+				06D9AD702881388A00F2D2EA /* View */,
+				06D9AD90288138FD00F2D2EA /* View Modifiers */,
 				06D9AD30287EB39400F2D2EA /* Preview Content */,
 			);
 			path = MusicGuess;
@@ -67,6 +136,50 @@
 				06D9AD31287EB39400F2D2EA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		06D9AD652881388A00F2D2EA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD662881388A00F2D2EA /* Clue.swift */,
+				06D9AD672881388A00F2D2EA /* Game.swift */,
+				06D9AD682881388A00F2D2EA /* Category.swift */,
+				06D9AD692881388A00F2D2EA /* ErrorAlertItem.swift */,
+				06D9AD6A2881388A00F2D2EA /* Player.swift */,
+				06D9AD6B2881388A00F2D2EA /* ClueSet.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		06D9AD702881388A00F2D2EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD742881388A00F2D2EA /* RootView.swift */,
+				06D9AD712881388A00F2D2EA /* APGameView.swift */,
+				06D9AD732881388A00F2D2EA /* GamePlayView.swift */,
+				06CD2E2A2881727E005D484E /* GamePlayAnswerView.swift */,
+				06D9AD752881388A00F2D2EA /* PlayerConfigView.swift */,
+				06D9AD762881388A00F2D2EA /* BackgroundView.swift */,
+				06D9AD772881388A00F2D2EA /* ClueView.swift */,
+				06D9AD782881388A00F2D2EA /* PlayerCellView.swift */,
+				06D9AD792881388A00F2D2EA /* APBoardView.swift */,
+				06D9AD722881388A00F2D2EA /* LeaderboardView.swift */,
+				06CD2E2628813E43005D484E /* WelcomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		06D9AD90288138FD00F2D2EA /* View Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD91288138FD00F2D2EA /* CustomColors.swift */,
+				06D9AD92288138FD00F2D2EA /* View+Scales.swift */,
+				06D9AD93288138FD00F2D2EA /* ControlStyles.swift */,
+				06CD2E2328813C63005D484E /* ProminentButtonStyle.swift */,
+				06CD2E2C28817306005D484E /* Song+Styles.swift */,
+				06CD2E2E28817489005D484E /* BlueSlide.swift */,
+			);
+			path = "View Modifiers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,6 +214,7 @@
 				TargetAttributes = {
 					06D9AD25287EB39300F2D2EA = {
 						CreatedOnToolsVersion = 14.0;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -127,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06D9AD8F2881388A00F2D2EA /* Impact.ttf in Resources */,
 				06D9AD32287EB39400F2D2EA /* Preview Assets.xcassets in Resources */,
 				06D9AD2E287EB39400F2D2EA /* Assets.xcassets in Resources */,
 			);
@@ -139,8 +254,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06D9AD2C287EB39300F2D2EA /* ContentView.swift in Sources */,
-				06D9AD2A287EB39300F2D2EA /* MusicGuessApp.swift in Sources */,
+				06D9AD8E2881388A00F2D2EA /* APBoardView.swift in Sources */,
+				06D9AD95288138FD00F2D2EA /* View+Scales.swift in Sources */,
+				06CD2E2B2881727E005D484E /* GamePlayAnswerView.swift in Sources */,
+				06D9AD812881388A00F2D2EA /* ClueSet.swift in Sources */,
+				06CD2E2728813E43005D484E /* WelcomeView.swift in Sources */,
+				06CD2E2F28817489005D484E /* BlueSlide.swift in Sources */,
+				06D9AD8C2881388A00F2D2EA /* ClueView.swift in Sources */,
+				06D9AD7F2881388A00F2D2EA /* ErrorAlertItem.swift in Sources */,
+				06D9AD7C2881388A00F2D2EA /* Clue.swift in Sources */,
+				06D9AD7D2881388A00F2D2EA /* Game.swift in Sources */,
+				06D9AD852881388A00F2D2EA /* MusicManager.swift in Sources */,
+				06CD2E2D28817306005D484E /* Song+Styles.swift in Sources */,
+				06D9AD892881388A00F2D2EA /* RootView.swift in Sources */,
+				06CD2E2428813C63005D484E /* ProminentButtonStyle.swift in Sources */,
+				06D9AD832881388A00F2D2EA /* MusicGuessApp.swift in Sources */,
+				06D9AD8B2881388A00F2D2EA /* BackgroundView.swift in Sources */,
+				06D9AD7B2881388A00F2D2EA /* AppState.swift in Sources */,
+				06D9AD802881388A00F2D2EA /* Player.swift in Sources */,
+				06CD2E2228813A07005D484E /* RandomNumberGeneratorWithSeed.swift in Sources */,
+				06D9AD842881388A00F2D2EA /* LanguageManager.swift in Sources */,
+				06D9AD96288138FD00F2D2EA /* ControlStyles.swift in Sources */,
+				06D9AD8A2881388A00F2D2EA /* PlayerConfigView.swift in Sources */,
+				06D9AD862881388A00F2D2EA /* APGameView.swift in Sources */,
+				06D9AD882881388A00F2D2EA /* GamePlayView.swift in Sources */,
+				06D9AD94288138FD00F2D2EA /* CustomColors.swift in Sources */,
+				06D9AD7E2881388A00F2D2EA /* Category.swift in Sources */,
+				06D9AD822881388A00F2D2EA /* APGameViewModel.swift in Sources */,
+				06CD2E2928813FFA005D484E /* AppStorage.swift in Sources */,
+				06D9AD8D2881388A00F2D2EA /* PlayerCellView.swift in Sources */,
+				06D9AD872881388A00F2D2EA /* LeaderboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +404,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MusicGuess/MusicGuess.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicGuess/Preview Content\"";
@@ -269,10 +414,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MusicGuess/Info.plist;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -281,10 +426,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nightdreamer.MusicGuess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Debug;
 		};
@@ -293,7 +441,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MusicGuess/MusicGuess.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MusicGuess/Preview Content\"";
@@ -301,10 +451,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MusicGuess/Info.plist;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -313,10 +463,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nightdreamer.MusicGuess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Release;
 		};
