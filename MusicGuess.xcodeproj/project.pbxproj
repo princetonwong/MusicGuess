@@ -92,6 +92,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0673001D28817FD000C58726 /* GameView */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD6C2881388A00F2D2EA /* APGameViewModel.swift */,
+				06D9AD712881388A00F2D2EA /* APGameView.swift */,
+				06D9AD792881388A00F2D2EA /* APBoardView.swift */,
+				06D9AD772881388A00F2D2EA /* ClueView.swift */,
+				06D9AD732881388A00F2D2EA /* GamePlayView.swift */,
+				06CD2E2A2881727E005D484E /* GamePlayAnswerView.swift */,
+				06D9AD782881388A00F2D2EA /* PlayerCellView.swift */,
+				06D9AD722881388A00F2D2EA /* LeaderboardView.swift */,
+			);
+			path = GameView;
+			sourceTree = "<group>";
+		};
+		0673001E2881803400C58726 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		0673001F2881806600C58726 /* ConfigView */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD752881388A00F2D2EA /* PlayerConfigView.swift */,
+			);
+			path = ConfigView;
+			sourceTree = "<group>";
+		};
+		06730020288180C500C58726 /* AppModel */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD6D2881388A00F2D2EA /* MusicGuessApp.swift */,
+				06D9AD642881388A00F2D2EA /* AppState.swift */,
+				06CD2E2828813FFA005D484E /* AppStorage.swift */,
+				06D9AD6E2881388A00F2D2EA /* LanguageManager.swift */,
+				06D9AD6F2881388A00F2D2EA /* MusicManager.swift */,
+			);
+			path = AppModel;
+			sourceTree = "<group>";
+		};
+		06730021288180CE00C58726 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				06D9AD2D287EB39400F2D2EA /* Assets.xcassets */,
+				06D9AD7A2881388A00F2D2EA /* Impact.ttf */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		06D9AD1D287EB39300F2D2EA = {
 			isa = PBXGroup;
 			children = (
@@ -112,17 +164,11 @@
 			isa = PBXGroup;
 			children = (
 				06CD2E2528813CEB005D484E /* Info.plist */,
-				06D9AD2D287EB39400F2D2EA /* Assets.xcassets */,
 				06D9AD2F287EB39400F2D2EA /* MusicGuess.entitlements */,
-				06D9AD6D2881388A00F2D2EA /* MusicGuessApp.swift */,
-				06D9AD6C2881388A00F2D2EA /* APGameViewModel.swift */,
-				06D9AD642881388A00F2D2EA /* AppState.swift */,
-				06CD2E2828813FFA005D484E /* AppStorage.swift */,
-				06D9AD6E2881388A00F2D2EA /* LanguageManager.swift */,
-				06D9AD6F2881388A00F2D2EA /* MusicManager.swift */,
-				06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */,
-				06D9AD7A2881388A00F2D2EA /* Impact.ttf */,
-				06D9AD652881388A00F2D2EA /* Model */,
+				06730021288180CE00C58726 /* Assets */,
+				06730020288180C500C58726 /* AppModel */,
+				0673001E2881803400C58726 /* Helper */,
+				06D9AD652881388A00F2D2EA /* GameModel */,
 				06D9AD702881388A00F2D2EA /* View */,
 				06D9AD90288138FD00F2D2EA /* View Modifiers */,
 				06D9AD30287EB39400F2D2EA /* Preview Content */,
@@ -138,7 +184,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		06D9AD652881388A00F2D2EA /* Model */ = {
+		06D9AD652881388A00F2D2EA /* GameModel */ = {
 			isa = PBXGroup;
 			children = (
 				06D9AD662881388A00F2D2EA /* Clue.swift */,
@@ -148,23 +194,17 @@
 				06D9AD6A2881388A00F2D2EA /* Player.swift */,
 				06D9AD6B2881388A00F2D2EA /* ClueSet.swift */,
 			);
-			path = Model;
+			path = GameModel;
 			sourceTree = "<group>";
 		};
 		06D9AD702881388A00F2D2EA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				06D9AD742881388A00F2D2EA /* RootView.swift */,
-				06D9AD712881388A00F2D2EA /* APGameView.swift */,
-				06D9AD732881388A00F2D2EA /* GamePlayView.swift */,
-				06CD2E2A2881727E005D484E /* GamePlayAnswerView.swift */,
-				06D9AD752881388A00F2D2EA /* PlayerConfigView.swift */,
-				06D9AD762881388A00F2D2EA /* BackgroundView.swift */,
-				06D9AD772881388A00F2D2EA /* ClueView.swift */,
-				06D9AD782881388A00F2D2EA /* PlayerCellView.swift */,
-				06D9AD792881388A00F2D2EA /* APBoardView.swift */,
-				06D9AD722881388A00F2D2EA /* LeaderboardView.swift */,
 				06CD2E2628813E43005D484E /* WelcomeView.swift */,
+				06D9AD762881388A00F2D2EA /* BackgroundView.swift */,
+				06D9AD742881388A00F2D2EA /* RootView.swift */,
+				0673001F2881806600C58726 /* ConfigView */,
+				0673001D28817FD000C58726 /* GameView */,
 			);
 			path = View;
 			sourceTree = "<group>";
