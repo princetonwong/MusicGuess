@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		06095E6B288248E90080C015 /* MusicConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06095E6A288248E90080C015 /* MusicConfigView.swift */; };
 		06095E6E28824FDE0080C015 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 06095E6D28824FDE0080C015 /* Defaults */; };
+		06095E71288263400080C015 /* ASCollectionView in Frameworks */ = {isa = PBXBuildFile; productRef = 06095E70288263400080C015 /* ASCollectionView */; };
 		06CD2E2228813A07005D484E /* RandomNumberGeneratorWithSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */; };
 		06CD2E2428813C63005D484E /* ProminentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2328813C63005D484E /* ProminentButtonStyle.swift */; };
 		06CD2E2728813E43005D484E /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2628813E43005D484E /* WelcomeView.swift */; };
@@ -90,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06095E6E28824FDE0080C015 /* Defaults in Frameworks */,
+				06095E71288263400080C015 /* ASCollectionView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +247,7 @@
 			name = MusicGuess;
 			packageProductDependencies = (
 				06095E6D28824FDE0080C015 /* Defaults */,
+				06095E70288263400080C015 /* ASCollectionView */,
 			);
 			productName = MusicGuess;
 			productReference = 06D9AD26287EB39300F2D2EA /* MusicGuess.app */;
@@ -277,6 +280,7 @@
 			mainGroup = 06D9AD1D287EB39300F2D2EA;
 			packageReferences = (
 				06095E6C28824FDE0080C015 /* XCRemoteSwiftPackageReference "Defaults" */,
+				06095E6F288263400080C015 /* XCRemoteSwiftPackageReference "ASCollectionView" */,
 			);
 			productRefGroup = 06D9AD27287EB39300F2D2EA /* Products */;
 			projectDirPath = "";
@@ -556,6 +560,14 @@
 				kind = branch;
 			};
 		};
+		06095E6F288263400080C015 /* XCRemoteSwiftPackageReference "ASCollectionView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apptekstudios/ASCollectionView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -563,6 +575,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 06095E6C28824FDE0080C015 /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
+		};
+		06095E70288263400080C015 /* ASCollectionView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06095E6F288263400080C015 /* XCRemoteSwiftPackageReference "ASCollectionView" */;
+			productName = ASCollectionView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

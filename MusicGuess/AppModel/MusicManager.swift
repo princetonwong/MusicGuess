@@ -29,6 +29,7 @@ final class MusicManager: ObservableObject {
     
     var categories: [Category] = []
     
+    @MainActor
     func setup() async -> ClueSet{
         for name in artistNamesString.lines {
             let newCategory = await requestArtistTopSongs(artistName: name)

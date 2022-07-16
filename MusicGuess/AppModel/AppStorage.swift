@@ -27,6 +27,8 @@ class AppStorage: ObservableObject {
     private var musicAuthorizationStatusObserver: AnyCancellable?
     private let maximumNumberOfRecentlyViewedAlbums = 10
     
+    @Published var clueSet: ClueSet?
+    
     var recentPlayers: [Player] {
         get {
             return  Defaults[.players].compactMap{Player(name: $0)}
