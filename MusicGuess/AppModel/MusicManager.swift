@@ -11,6 +11,8 @@ import Foundation
 
 final class MusicManager: ObservableObject {
     
+    static let shared = MusicManager()
+    
     /// The key of the currently rendered view.
     @Published var artists: [Artist] = []
     

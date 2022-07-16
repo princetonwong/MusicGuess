@@ -13,7 +13,7 @@ struct MusicGuessApp: App {
     
     @StateObject private var appState = AppState.shared
     @StateObject private var appStorage = AppStorage.shared
-    @StateObject private var musicManager = MusicManager()
+    @StateObject private var musicManager = MusicManager.shared
     
     // MARK: - Object lifecycle
     
@@ -31,6 +31,7 @@ struct MusicGuessApp: App {
             RootView()
                 .environmentObject(appState)
                 .environmentObject(musicManager)
+                .environmentObject(appStorage)
                 .onAppear(perform: appStorage.beginObservingMusicAuthorizationStatus)
                 .welcomeSheet()
         }

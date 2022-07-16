@@ -11,7 +11,8 @@ struct RootView: View {
     
     /// The global app state.
     @EnvironmentObject private var appState: AppState
-    @EnvironmentObject var musicManager: MusicManager
+    @EnvironmentObject private var musicManager: MusicManager
+    @EnvironmentObject private var appStorage: AppStorage
     
     var body: some View {
         currentView
@@ -24,8 +25,10 @@ struct RootView: View {
     /// The currently rendered view.
     @ViewBuilder private var currentView: some View {
         switch appState.currentViewKey {
-        case .gameConfig:
+        case .playerConfig:
             PlayerConfigView()
+        case .musicConfig:
+            MusicConfigView()
         case .game(let game):
             APGameView(viewModel: APGameViewModel(game: game))
         }

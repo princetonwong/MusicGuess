@@ -8,6 +8,12 @@
 import Combine
 import Foundation
 import MusicKit
+import Defaults
+
+extension Defaults.Keys {
+    static let recentlyViewedAlbumIdentifiers = Key<[String]>("recently-viewed-albums-identifiers", default: [])
+    static let players = Key<[String]>("players", default: [])
+}
 
 class AppStorage: ObservableObject {
     
@@ -17,40 +23,36 @@ class AppStorage: ObservableObject {
     
     // MARK: - Properties
     
-    /// A collection of recently viewed albums.
     @Published var recentlyViewedAlbums: MusicItemCollection<Album> = []
-    
-    /// The `UserDefaults` key for persisting recently viewed album identifiers.
-    private let recentlyViewedAlbumIdentifiersKey = "recently-viewed-albums-identifiers"
-    
-    /// The maximum number of recently viewed albums that the storage object can persist to `UserDefaults`.
+    private var musicAuthorizationStatusObserver: AnyCancellable?
     private let maximumNumberOfRecentlyViewedAlbums = 10
     
-    /// Retrieves recently viewed album identifiers from `UserDefaults`.
+    var recentPlayers: [Player] {
+        get {
+            return  Defaults[.players].compactMap{Player(name: $0)}
+        }
+        set {
+            Defaults[.players] = newValue.map{$0.name}
+        }
+    }
+    
     private var recentlyViewedAlbumIDs: [MusicItemID] {
         get {
-            let rawRecentlyViewedAlbumIdentifiers = UserDefaults.standard.array(forKey: recentlyViewedAlbumIdentifiersKey) ?? []
-            let recentlyViewedAlbumIDs = rawRecentlyViewedAlbumIdentifiers.compactMap { identifier -> MusicItemID? in
+            let recentlyViewedAlbumIDs = Defaults[.recentlyViewedAlbumIdentifiers].compactMap { identifier -> MusicItemID? in
                 var itemID: MusicItemID?
-                if let stringIdentifier = identifier as? String {
-                    itemID = MusicItemID(stringIdentifier)
-                }
+                itemID = MusicItemID(identifier)
                 return itemID
             }
             return recentlyViewedAlbumIDs
         }
         set {
-            UserDefaults.standard.set(newValue.map(\.rawValue), forKey: recentlyViewedAlbumIdentifiersKey)
+            Defaults[.recentlyViewedAlbumIdentifiers] = newValue.map{$0.rawValue}
             loadRecentlyViewedAlbums()
         }
     }
     
-    /// Observer of changes to the current MusicKit authorization status.
-    private var musicAuthorizationStatusObserver: AnyCancellable?
-    
     // MARK: - Methods
     
-    /// Begins observing MusicKit authorization status.
     func beginObservingMusicAuthorizationStatus() {
         musicAuthorizationStatusObserver = WelcomeView.PresentationCoordinator.shared.$musicAuthorizationStatus
             .filter { authorizationStatus in
@@ -61,12 +63,10 @@ class AppStorage: ObservableObject {
             }
     }
     
-    /// Clears recently viewed album identifiers from `UserDefaults`.
     func reset() {
         self.recentlyViewedAlbumIDs = []
     }
     
-    /// Adds an album to the viewed album identifiers in `UserDefaults`.
     func update(with recentlyViewedAlbum: Album) {
         var recentlyViewedAlbumIDs = self.recentlyViewedAlbumIDs
         if let index = recentlyViewedAlbumIDs.firstIndex(of: recentlyViewedAlbum.id) {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06095E6B288248E90080C015 /* MusicConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06095E6A288248E90080C015 /* MusicConfigView.swift */; };
+		06095E6E28824FDE0080C015 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 06095E6D28824FDE0080C015 /* Defaults */; };
 		06CD2E2228813A07005D484E /* RandomNumberGeneratorWithSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */; };
 		06CD2E2428813C63005D484E /* ProminentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2328813C63005D484E /* ProminentButtonStyle.swift */; };
 		06CD2E2728813E43005D484E /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CD2E2628813E43005D484E /* WelcomeView.swift */; };
@@ -43,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06095E6A288248E90080C015 /* MusicConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicConfigView.swift; sourceTree = "<group>"; };
 		06CD2E2128813A07005D484E /* RandomNumberGeneratorWithSeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGeneratorWithSeed.swift; sourceTree = "<group>"; };
 		06CD2E2328813C63005D484E /* ProminentButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProminentButtonStyle.swift; sourceTree = "<group>"; };
 		06CD2E2528813CEB005D484E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06095E6E28824FDE0080C015 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				06D9AD752881388A00F2D2EA /* PlayerConfigView.swift */,
+				06095E6A288248E90080C015 /* MusicConfigView.swift */,
 			);
 			path = ConfigView;
 			sourceTree = "<group>";
@@ -238,6 +243,9 @@
 			dependencies = (
 			);
 			name = MusicGuess;
+			packageProductDependencies = (
+				06095E6D28824FDE0080C015 /* Defaults */,
+			);
 			productName = MusicGuess;
 			productReference = 06D9AD26287EB39300F2D2EA /* MusicGuess.app */;
 			productType = "com.apple.product-type.application";
@@ -267,6 +275,9 @@
 				Base,
 			);
 			mainGroup = 06D9AD1D287EB39300F2D2EA;
+			packageReferences = (
+				06095E6C28824FDE0080C015 /* XCRemoteSwiftPackageReference "Defaults" */,
+			);
 			productRefGroup = 06D9AD27287EB39300F2D2EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -314,6 +325,7 @@
 				06D9AD802881388A00F2D2EA /* Player.swift in Sources */,
 				06CD2E2228813A07005D484E /* RandomNumberGeneratorWithSeed.swift in Sources */,
 				06D9AD842881388A00F2D2EA /* LanguageManager.swift in Sources */,
+				06095E6B288248E90080C015 /* MusicConfigView.swift in Sources */,
 				06D9AD96288138FD00F2D2EA /* ControlStyles.swift in Sources */,
 				06D9AD8A2881388A00F2D2EA /* PlayerConfigView.swift in Sources */,
 				06D9AD862881388A00F2D2EA /* APGameView.swift in Sources */,
@@ -534,6 +546,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		06095E6C28824FDE0080C015 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults#swiftui-support";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		06095E6D28824FDE0080C015 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 06095E6C28824FDE0080C015 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 06D9AD1E287EB39300F2D2EA /* Project object */;
 }

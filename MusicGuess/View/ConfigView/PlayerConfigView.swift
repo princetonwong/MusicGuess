@@ -10,9 +10,8 @@ import SwiftUI
 struct PlayerConfigView: View {
     
     @EnvironmentObject private var appState: AppState
-    @EnvironmentObject var musicManager: MusicManager
-    
-//    @State private var clueSet: ClueSet?
+    @EnvironmentObject private var musicManager: MusicManager
+    @EnvironmentObject private var appStorage: AppStorage
     
     @State private var players = [Player]()
     
@@ -26,16 +25,24 @@ struct PlayerConfigView: View {
     @State private var startGamePressed: Bool = false
     
     
+    private let startGameTitle: LocalizedStringKey = "Start a new game"
+    private let enterPlayerNameTitle: LocalizedStringKey = "Enter player's name"
+    private let addButtonText: LocalizedStringKey = "ADD"
+    private let noContestantsAdded: LocalizedStringKey = "No contestants added."
+    private let startGameButtonText: LocalizedStringKey = "START GAME"
+    private let loadingTitle: LocalizedStringKey = "Loading ...."
+    
+    
     var body: some View {
         VStack(spacing: 32) {
             
             Spacer()
             
-            Text("START A NEW GAME")
+            Text(startGameTitle)
                 .font(.custom("PT Sans Bold", size: 48))
             
             VStack {
-                Text("CONTESTANTS")
+                Text(enterPlayerNameTitle)
                     .font(.custom("PT Sans", size: 32))
                     .padding()
                 HStack(spacing: 12) {
@@ -49,7 +56,7 @@ struct PlayerConfigView: View {
                     
                     Button(action: addNewPlayer) {
                         Label(
-                            title: { Text("ADD") },
+                            title: { Text(addButtonText) },
                             icon: { Image(systemName: "plus.circle.fill") }
                         )
                     }
@@ -57,7 +64,7 @@ struct PlayerConfigView: View {
                     
                 }
                 if players.isEmpty {
-                    Text("No contestants added.")
+                    Text(noContestantsAdded)
                         .font(.custom("PT Sans", size: 14))
                         .padding(.top)
                 }
@@ -81,7 +88,7 @@ struct PlayerConfigView: View {
             
             Spacer(minLength: 0)
             
-            Button(!startGamePressed ? "START GAME" : "Loading ...", action: startGame)
+            Button(!startGamePressed ? startGameButtonText : loadingTitle, action: startGame)
             //                .disabled(clueSet == nil || players.count < minimumPlayerCount)
             
             Spacer(minLength: 8)
@@ -92,6 +99,9 @@ struct PlayerConfigView: View {
 //        .alert(item: $errorAlertInfo) {
 //            Alert(title: Text($0.title), message: Text($0.message))
 //        }
+        .onAppear {
+            players = appStorage.recentPlayers
+        }
     }
     
     private func addNewPlayer() {
@@ -122,10 +132,8 @@ struct PlayerConfigView: View {
     
     private func startGame() {
         startGamePressed = true
-        Task {
-            let game = Game(clueSet: await musicManager.setup(), players: players)
-            appState.currentViewKey = .game(game)
-        }
+        appStorage.recentPlayers = players
+        appState.currentViewKey = .musicConfig(players)
     }
 }
     
