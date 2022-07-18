@@ -10,24 +10,23 @@ import Foundation
 import MusicKit
 import Defaults
 
-extension Defaults.Keys {
-    static let recentlyViewedAlbumIdentifiers = Key<[String]>("recently-viewed-albums-identifiers", default: [])
-    static let players = Key<[String]>("players", default: [])
-}
 
 class AppStorage: ObservableObject {
     
-    // MARK: - Object lifecycle
-    
     static let shared = AppStorage()
-    
-    // MARK: - Properties
-    
+
     @Published var recentlyViewedAlbums: MusicItemCollection<Album> = []
     private var musicAuthorizationStatusObserver: AnyCancellable?
     private let maximumNumberOfRecentlyViewedAlbums = 10
     
     @Published var clueSet: ClueSet?
+    
+    var songs: [Song] {
+        if let clueSet {
+            return clueSet.roundCategories.map{$0.clues}.flatMap{$0}.map{$0.song}
+        }
+        return []
+    }
     
     var recentPlayers: [Player] {
         get {
@@ -105,4 +104,9 @@ class AppStorage: ObservableObject {
     private func updateRecentlyViewedAlbums(_ recentlyViewedAlbums: MusicItemCollection<Album>) {
         self.recentlyViewedAlbums = recentlyViewedAlbums
     }
+}
+
+extension Defaults.Keys {
+    static let recentlyViewedAlbumIdentifiers = Key<[String]>("recently-viewed-albums-identifiers", default: [])
+    static let players = Key<[String]>("players", default: [])
 }

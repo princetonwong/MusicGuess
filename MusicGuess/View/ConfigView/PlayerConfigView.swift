@@ -134,6 +134,16 @@ struct PlayerConfigView: View {
         startGamePressed = true
         appStorage.recentPlayers = players
         appState.currentViewKey = .musicConfig(players)
+        Task {
+            appStorage.clueSet = await musicManager.preloadsampleData()
+            
+        }
+        
+        
+//        Task {
+//            let game = Game(clueSet: await musicManager.setup(), players: players)
+//            appState.currentViewKey = .game(game)
+//        }
     }
 }
     

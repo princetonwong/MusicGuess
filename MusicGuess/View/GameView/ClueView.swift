@@ -21,7 +21,7 @@ struct ClueView: View {
         if !showsAnswer {
             GamePlayView(clue: clue)
                 .onTapGesture {
-                    self.showsAnswer = false
+                    self.showsAnswer = true
                 }
         }
         else {

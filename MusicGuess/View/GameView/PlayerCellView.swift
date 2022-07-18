@@ -60,9 +60,10 @@ struct PlayerCellView: View {
                 Button(action: enableEditMode) {
                     Image(systemName: "pencil.circle.fill")
                 }
+//                .buttonStyle(TrebekButtonStyle())
 
             }
-            .buttonStyle(TrebekButtonStyle())
+            .font(.title)
             .frame(minHeight: 16, maxHeight: 30)
             
         }

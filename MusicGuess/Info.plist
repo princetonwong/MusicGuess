@@ -4,7 +4,5 @@
 <dict>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>Play music for you to guess</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Play music for you to guess</string>
 </dict>
 </plist>

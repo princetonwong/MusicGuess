@@ -14,7 +14,7 @@ final class MusicManager: ObservableObject {
     static let shared = MusicManager()
     
     /// The key of the currently rendered view.
-    @Published var artists: [Artist] = []
+    @Published var preloadedMusicItems: [MusicItemTypeType] = []
     
     let artistNamesString =
 """
@@ -30,7 +30,7 @@ final class MusicManager: ObservableObject {
     var categories: [Category] = []
     
     @MainActor
-    func setup() async -> ClueSet{
+    func preloadsampleData() async -> ClueSet {
         for name in artistNamesString.lines {
             let newCategory = await requestArtistTopSongs(artistName: name)
             if let newCategory {
@@ -38,6 +38,29 @@ final class MusicManager: ObservableObject {
             }
         }
         return ClueSet(roundCategories: categories)
+    }
+    
+    @Published var searchedArtists: [MusicItemTypeType] = []
+    
+//    func searchForArtist(searchTerm: String) async {
+//        do {
+//            var searchRequest = MusicCatalogSearchRequest(term: searchTerm, types: [Artist.self])
+//            searchRequest.limit = 20
+//            let searchResponse = try await searchRequest.response()
+//            await updateSearchArtists(from: searchResponse)
+//        } catch {
+//            print("Search request failed with error: \(error).")
+//        }
+//    }
+//    
+//    @MainActor
+//    private func updateSearchArtists(from searchResponse: MusicCatalogSearchResponse) {
+//        searchedArtists = searchResponse.artists
+//    }
+    
+    @MainActor
+    private func addArtists(_ artist: Artist) {
+        preloadedMusicItems.append(MusicItemTypeType.artist(artist))
     }
     
     func requestArtistTopSongs(artistName: String) async -> Category? {
@@ -50,6 +73,8 @@ final class MusicManager: ObservableObject {
                 
                 let detailedArtist = try await firstArtist.with([.topSongs])
                 
+                await addArtists(detailedArtist)
+                
                 if let topSongs = detailedArtist.topSongs {
                     var guesses: [APGuess] = []
                     for (index, song) in topSongs.enumerated() {
@@ -58,7 +83,7 @@ final class MusicManager: ObservableObject {
                             guesses.append(guess)
                         }
                     }
-                    
+        
                     let category = Category(title: detailedArtist.name, clues: guesses)
                     return category
                 }
