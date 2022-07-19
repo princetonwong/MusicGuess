@@ -58,6 +58,11 @@ struct MusicConfigView: View {
                     .padding(.bottom)
                 }
                 .navigationTitle("Select Music")
+                .toolbar() {
+                    Button("Start Game", action: {
+                        Task {await startGame()
+                        }
+                    })}
                 .frame(minHeight: 200)
                 
                 
@@ -73,8 +78,8 @@ struct MusicConfigView: View {
             }
         }
         .navigationSplitViewColumnWidth(600)
-        .onSubmit(of: .search) {viewModel.runSearch(searchScope: searchScope)}
-        .onChange(of: searchScope) {scope in viewModel.runSearch(searchScope: scope)}
+//        .onSubmit(of: .search) {viewModel.runSearch(searchScope: searchScope)}
+//        .onChange(of: searchScope) {scope in viewModel.runSearch(searchScope: scope)}
         .onAppear {musicItems = musicManager.preloadedMusicItems}
     }
     
@@ -90,12 +95,22 @@ struct MusicConfigView: View {
     @ViewBuilder
     private var aList: some View {
         List {
-            NavigationLink {EmptyView()} label: {Label("Charts", systemImage: "chart.bar.fill")}
+            NavigationLink {personalRecommendationsList} label: {Label("Charts", systemImage: "chart.bar.fill")}
             NavigationLink {preloadedList} label: {Label("Preloaded", systemImage: "info.circle.fill")}
             NavigationLink {searchDetailList} label: {Label("Search", systemImage: "magnifyingglass")}
         }
         .navigationTitle("Select Music")
     }
+    
+    @ViewBuilder
+    private var personalRecommendationsList: some View {
+        List {
+            MusicItemSection(title: "Personal Recommendations", items: viewModel.recommendedPlaylists) { item in
+                MultiSelectRow(item: PlayableMusicItem.playlist(item), selectedItems: $selectedMusicItems)
+            }
+        }
+    }
+    
     
     @ViewBuilder
     private var preloadedList: some View {
@@ -118,7 +133,7 @@ struct MusicConfigView: View {
                 }
                 
                 MusicItemSection(title: "Top Results", items: searchResponse.topResults) { topResult in
-                    topResult.topResultCell()
+                    topResult.multiSelectRow(selectedItems: $selectedMusicItems)
                 }
                 
             }
@@ -132,9 +147,54 @@ struct MusicConfigView: View {
         .animation(.default, value: viewModel.recommendedPlaylists)
         .animation(.default, value: viewModel.searchResponse)
     }
+    
+    
+    private func startGame() async {
+        var categories: [Category] = []
+        for item in selectedMusicItems {
+            switch item {
+            case .artist(let artist):
+                if let v = await viewModel.produceCategoryWithArtistTopSongs(from: artist) {
+                    categories.append(v)
+                }
+            case .album(let album):
+                if let v = await viewModel.produceCategoryWithAlbum(from: album) {
+                    categories.append(v)
+                }
+            case .playlist(let playlist):
+                if let v = await viewModel.produceCategoryWithPlaylist(from: playlist) {
+                    categories.append(v)
+                }
+            }
+        }
+        
+        await appStorage.updateClueSet(categories: categories)
+        
+        //        Task {
+        if let clueSet = appStorage.clueSet, !clueSet.roundCategories.isEmpty {
+            let game = Game(clueSet: clueSet, players: appStorage.recentPlayers)
+            appState.currentViewKey = .game(game)
+        //            }
+    }
+        }
 }
 
 extension MusicCatalogSearchResponse.TopResult {
+    
+    @ViewBuilder
+    func multiSelectRow(selectedItems: Binding<[PlayableMusicItem]>) -> some View {
+        switch self {
+        case .album(let album):
+            MultiSelectRow(item: PlayableMusicItem.album(album), selectedItems: selectedItems)
+        case .artist(let artist):
+            MultiSelectRow(item: PlayableMusicItem.artist(artist), selectedItems: selectedItems)
+        case .playlist(let playlist):
+            MultiSelectRow(item: PlayableMusicItem.playlist(playlist), selectedItems: selectedItems)
+        default:
+            EmptyView()
+        }
+    }
+    
     @ViewBuilder
     func topResultCell() -> some View {
         switch self {

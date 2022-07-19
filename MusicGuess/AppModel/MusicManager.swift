@@ -61,7 +61,6 @@ final class MusicManager: ObservableObject {
 //    }
     
    
-    
     func requestArtistTopSongs(artistName: String) async -> Category? {
         do {
             var searchRequest = MusicCatalogSearchRequest(term: artistName, types: [Artist.self])

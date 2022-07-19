@@ -54,36 +54,41 @@ class MusicConfigViewModel: ObservableObject {
         }
     }
     
-    func runSearch(searchScope: SearchScope) {
-        Task {
-            do {
-                
-                var searchRequest = MusicCatalogSearchRequest(term: searchTerm, types: [Artist.self])
-                searchRequest.limit = 10
-                let searchResponse = try await searchRequest.response()
-                
-                if let firstArtist = searchResponse.artists.first {
-                    
-                    let detailedArtist = try await firstArtist.with([.topSongs])
-                    
-                    //                    await addArtists(detailedArtist)
-                    //
-                    //                    if let topSongs = detailedArtist.topSongs {
-                    //                        var guesses: [APGuess] = []
-                    //                        for (index, song) in topSongs.enumerated() {
-                    //                            if index < 8 {
-                    //                                let guess = APGuess(title: song.title, song: song, pointValue: APGuess.pointValues[index])
-                    //                                guesses.append(guess)
-                    //                            }
-                    //                        }
-                    //
-                    //                        let category = Category(title: detailedArtist.name, clues: guesses)
-                    //                        return category
-                }
-            } catch {
-                print("Search request failed with error: \(error).")
+    
+    func produceCategoryWithArtistTopSongs(from artist: Artist) async -> Category? {
+        do {
+            let detailedArtist = try await artist.with([.topSongs])
+            guard let topSongs = detailedArtist.topSongs else { return nil }
+            let guesses = topSongs.enumerated().compactMap {
+                $0 < 8 ? APGuess(title: $1.title, song: $1, pointValue: APGuess.pointValues[$0]) : nil
             }
+            return Category(title: detailedArtist.name, clues: guesses)
+        } catch {
+            print("Search request failed with error: \(error).")
         }
+        return nil
+            
+    }
+    
+    func produceCategoryWithPlaylist(from playlist: Playlist) async -> Category? {
+        do {
+            let detailedPlaylist = try await playlist.with([.tracks])
+            guard let tracks = detailedPlaylist.tracks else { return nil }
+            let guesses: [APGuess] = tracks.enumerated().compactMap {
+                if case let .song(songg) = $1, $0 < 8 {
+                    return APGuess(title: songg.title, song: songg, pointValue: APGuess.pointValues[$0])
+                }
+                return nil
+            }
+            return Category(title: detailedPlaylist.name, clues: guesses)
+        } catch {
+            print("Failed to load additional content for \(playlist) with error: \(error).")
+        }
+        return nil
+    }
+    
+    func produceCategoryWithAlbum(from album: Album) async -> Category? {
+        return nil
     }
     
     private func requestSearchSuggestions(for searchTerm: String) {

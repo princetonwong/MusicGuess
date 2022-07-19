@@ -11,8 +11,7 @@ import Foundation
 struct ClueSet: Codable {
     
     /// The categories in the Jeopardy! round.
-    let roundCategories: [Category]
-    
+    var roundCategories: [Category]
     
     private func validateCategory(at index: Int) throws {
         
@@ -34,7 +33,6 @@ struct ClueSet: Codable {
             try validateClue(at: clueIndex, categoryIndex: index)
         }
     }
-    
 
     private func validateClue(at clueIndex: Int, categoryIndex: Int) throws {
         

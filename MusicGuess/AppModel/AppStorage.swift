@@ -19,7 +19,7 @@ class AppStorage: ObservableObject {
     private var musicAuthorizationStatusObserver: AnyCancellable?
     private let maximumNumberOfRecentlyViewedAlbums = 10
     
-    @Published var clueSet: ClueSet?
+    @Published var clueSet: ClueSet? = ClueSet(roundCategories: [])
     
     var songs: [Song] {
         if let clueSet {
@@ -35,6 +35,11 @@ class AppStorage: ObservableObject {
         set {
             Defaults[.players] = newValue.map{$0.name}
         }
+    }
+    
+    @MainActor
+    func updateClueSet(categories: [Category]) async {
+        clueSet?.roundCategories = categories
     }
     
     private var recentlyViewedAlbumIDs: [MusicItemID] {
