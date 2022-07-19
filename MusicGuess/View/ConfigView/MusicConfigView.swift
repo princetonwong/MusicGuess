@@ -11,7 +11,15 @@ import CollectionViewPagingLayout
 import ASCollectionView
 import MusicKit
 
-enum SearchScope: String, CaseIterable {
+enum DetailDestination: String, CaseIterable, Identifiable {
+    case search, preloaded, charts
+    
+    var id: Self { self }
+}
+
+enum SearchScope: String, CaseIterable, Identifiable {
+    var id: Self { self }
+    
     case topResults = "Top Results"
     case Artists
     case Albums
@@ -24,99 +32,82 @@ struct MusicConfigView: View {
     @EnvironmentObject var musicManager: MusicManager
     @EnvironmentObject private var appStorage: AppStorage
     
-    @StateObject private var viewModel = SearchViewModel()
+    @StateObject private var viewModel = MusicConfigViewModel()
     
-    @State private var searchText = ""
-    @State private var searchScope = SearchScope.topResults
+    @State private var searchScope: SearchScope = .topResults
     
-    @State private var musicItems: [MusicItemTypeType] = []
+    @State private var musicItems: [PlayableMusicItem] = []
     
-    @State private var selectedMusicItems: [MusicItemTypeType] = []
+    @State private var selectedMusicItems: [PlayableMusicItem] = []
     
+    @Environment(\.isSearching) private var isSearching
     
-    var filteredMusicItems: [MusicItemTypeType] {
-        if searchText.isEmpty {
-            return musicItems
-        } else {
-            return musicManager.searchedArtists.map{$0}
-            //            appStorage.songs.filter { $0.text.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
+    @State private var destination: DetailDestination?
     
     var body: some View {
-        NavigationView {
-            masterView
-            detailView
-        }
-        //        .onSubmit(of: .search, runSearch)
-        //        .onChange(of: searchScope) { _ in runSearch() }
-        .onAppear {
-            musicItems = musicManager.preloadedMusicItems
-            
-        }
-    }
-    
-    private var masterView: some View {
-        List {
-            MusicItemSection(title: "Selected Items", items: MusicItemCollection(selectedMusicItems)) { item in
-                MultiSelectRow(item: item, selectedItems: $selectedMusicItems)
-            }
-            
-            if let searchResponse = viewModel.searchResponse {
-                MusicItemSection(title: "Recently played", items: searchResponse.topResults) { topResult in
-                    topResultCell(for: topResult)
-                }
-//                ForEach(musicItems) {musicItem in
-//                    MultiSelectRow(item: musicItem, selectedItems: $selectedMusicItems)
-//                }
-            }
-        }
-        .navigationTitle("Selected Items")
-        .searchable(text: $viewModel.searchTerm, scope: $searchScope) {
-            ForEach(SearchScope.allCases, id: \.self) { scope in
-                Text(scope.rawValue.capitalized)
-            }
-        }
-    }
-    
-    private var detailView: some View {
-        Group {
-            if viewModel.searchTerm.isEmpty {
-                VStack {
-//                    Text("Default View")
-//                    Spacer()
-                    
-                    MusicItemSection(title: "Selected Items", items: MusicItemCollection(musicManager.preloadedMusicItems)) { item in
+        NavigationSplitView{} content: {
+            VStack {
+                List(selection: $destination) {
+                    ForEach(DetailDestination.allCases) { d in
+                        label(d)
+                    }
+                    MusicItemSection(title: "Selected Items", items: MusicItemCollection(selectedMusicItems)) { item in
+                        // Change to collection or grid
                         MultiSelectRow(item: item, selectedItems: $selectedMusicItems)
                     }
-                    
-//                    List (musicItems, id: \.id) { item in
-//                        MultiSelectRow(item: item, selectedItems: $selectedMusicItems)
-//                    }
+                    .padding(.bottom)
                 }
-            } else {
-                itemsList
-                    .resignKeyboardOnDragGesture()
+                .navigationTitle("Select Music")
+                .frame(minHeight: 200)
+                
+                
+            }
+        } detail: {
+            NavigationStack {
+                switch destination {
+                case .preloaded: preloadedList
+                case .charts: EmptyView()
+                case .search: searchDetailList
+                case .none: EmptyView()
+                }
             }
         }
-    }
-    
-//    func runSearch() {
-//        Task {
-//            await musicManager.searchForArtist(searchTerm: searchText)
-//        }
-//    }
-    
-    private func startGame() {
-        //        startGamePressed = true
-        //        Task {
-        //            let game = Game(clueSet: await musicManager.setup(), players: players)
-        //            appState.currentViewKey = .game(game)
-        //        }
+        .navigationSplitViewColumnWidth(600)
+        .onSubmit(of: .search) {viewModel.runSearch(searchScope: searchScope)}
+        .onChange(of: searchScope) {scope in viewModel.runSearch(searchScope: scope)}
+        .onAppear {musicItems = musicManager.preloadedMusicItems}
     }
     
     @ViewBuilder
-    private var itemsList: some View {
+    func label(_ d: DetailDestination) -> some View {
+        switch d {
+        case .preloaded: Label("Preloaded", systemImage: "info.circle.fill")
+        case .charts: Label("Charts", systemImage: "chart.bar.fill")
+        case .search: Label("Search", systemImage: "magnifyingglass")
+        }
+    }
+    
+    @ViewBuilder
+    private var aList: some View {
+        List {
+            NavigationLink {EmptyView()} label: {Label("Charts", systemImage: "chart.bar.fill")}
+            NavigationLink {preloadedList} label: {Label("Preloaded", systemImage: "info.circle.fill")}
+            NavigationLink {searchDetailList} label: {Label("Search", systemImage: "magnifyingglass")}
+        }
+        .navigationTitle("Select Music")
+    }
+    
+    @ViewBuilder
+    private var preloadedList: some View {
+        List {
+            MusicItemSection(title: "Preloaded Items", items: MusicItemCollection(musicManager.preloadedMusicItems)) { item in
+                MultiSelectRow(item: item, selectedItems: $selectedMusicItems)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var searchDetailList: some View {
         List {
             if let searchResponse = viewModel.searchResponse {
                 ForEach(searchResponse.suggestions, id: \.self) { suggestion in
@@ -127,24 +118,26 @@ struct MusicConfigView: View {
                 }
                 
                 MusicItemSection(title: "Top Results", items: searchResponse.topResults) { topResult in
-                    topResultCell(for: topResult)
+                    topResult.topResultCell()
                 }
                 
-            } else {
-                Section(header: Text("Personal Recommendations").fontWeight(.semibold)) {
-                    ForEach(viewModel.recommendedPlaylists) { playlist in
-                        PlaylistCell(playlist)
-                    }
-                }
+            }
+        }
+        .searchable(text: $viewModel.searchTerm, placement: .navigationBarDrawer(displayMode: .always))
+        .searchScopes($searchScope) {
+            ForEach(SearchScope.allCases) { scope in
+                Text(scope.rawValue.capitalized).tag(scope)
             }
         }
         .animation(.default, value: viewModel.recommendedPlaylists)
         .animation(.default, value: viewModel.searchResponse)
     }
-    
+}
+
+extension MusicCatalogSearchResponse.TopResult {
     @ViewBuilder
-    func topResultCell(for topResult: MusicCatalogSearchResponse.TopResult) -> some View {
-        switch topResult {
+    func topResultCell() -> some View {
+        switch self {
         case .album(let album):
             AlbumCell(album)
         case .artist(let artist):
@@ -165,16 +158,5 @@ struct MusicConfigView: View {
     }
 }
 
-public enum MusicItemTypeType: MusicItem, Equatable, Hashable, Identifiable, Sendable, Decodable {
-    case album(Album)
-    case artist(Artist)
-    case playlist(Playlist)
-    
-    public var id: MusicItemID {
-        switch self {
-        case .album(let album): return album.id
-        case .artist(let artist):  return artist.id
-        case .playlist(let playlist): return playlist.id
-        }
-    }
-}
+
+

@@ -14,7 +14,9 @@ final class MusicManager: ObservableObject {
     static let shared = MusicManager()
     
     /// The key of the currently rendered view.
-    @Published var preloadedMusicItems: [MusicItemTypeType] = []
+    @Published var preloadedMusicItems: [PlayableMusicItem] = []
+    
+    @Published var searchedArtists: [PlayableMusicItem] = []
     
     let artistNamesString =
 """
@@ -40,7 +42,7 @@ final class MusicManager: ObservableObject {
         return ClueSet(roundCategories: categories)
     }
     
-    @Published var searchedArtists: [MusicItemTypeType] = []
+    
     
 //    func searchForArtist(searchTerm: String) async {
 //        do {
@@ -58,10 +60,7 @@ final class MusicManager: ObservableObject {
 //        searchedArtists = searchResponse.artists
 //    }
     
-    @MainActor
-    private func addArtists(_ artist: Artist) {
-        preloadedMusicItems.append(MusicItemTypeType.artist(artist))
-    }
+   
     
     func requestArtistTopSongs(artistName: String) async -> Category? {
         do {
@@ -92,6 +91,11 @@ final class MusicManager: ObservableObject {
             print("Search request failed with error: \(error).")
         }
         return nil
+    }
+    
+    @MainActor
+    private func addArtists(_ artist: Artist) {
+        preloadedMusicItems.append(PlayableMusicItem.artist(artist))
     }
 }
 

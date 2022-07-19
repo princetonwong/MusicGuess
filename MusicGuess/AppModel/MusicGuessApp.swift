@@ -28,6 +28,7 @@ struct MusicGuessApp: App {
         WindowGroup {
 //            ContentView()
 //                .frame(minWidth: 400.0, minHeight: 200.0)
+//            MainView()
             RootView()
                 .environmentObject(appState)
                 .environmentObject(musicManager)

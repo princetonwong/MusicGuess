@@ -10,9 +10,9 @@ import MusicKit
 
 struct MultiSelectRow: View {
     
-    let item: MusicItemTypeType
+    let item: PlayableMusicItem
     
-    @Binding var selectedItems: [MusicItemTypeType]
+    @Binding var selectedItems: [PlayableMusicItem]
     
     var isSelected: Bool {
         selectedItems.contains{$0.id == item.id}
@@ -20,7 +20,7 @@ struct MultiSelectRow: View {
     
     var body: some View {
         HStack {
-            topResultCell(for: item)
+            item.getMusicItemCell()
             
             Spacer()
 
@@ -39,10 +39,12 @@ struct MultiSelectRow: View {
             }
         }
     }
-    
+}
+
+extension PlayableMusicItem {
     @ViewBuilder
-    func topResultCell(for item: MusicItemTypeType) -> some View {
-        switch item.self {
+    func getMusicItemCell() -> some View {
+        switch self {
         case .album(let album):
             AlbumCell(album)
         case .artist(let artist):

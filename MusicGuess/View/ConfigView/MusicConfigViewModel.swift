@@ -9,16 +9,27 @@ import Combine
 import MusicKit
 import SwiftUI
 
-class MusicConfigViewModel: ObservableObject {
+public enum PlayableMusicItem: MusicItem, Equatable, Hashable, Identifiable, Sendable, Decodable {
     
-    // MARK: - Initialization
+    case album(Album)
+    case artist(Artist)
+    case playlist(Playlist)
+    
+    public var id: MusicItemID {
+        switch self {
+        case .album(let album): return album.id
+        case .artist(let artist):  return artist.id
+        case .playlist(let playlist): return playlist.id
+        }
+    }
+}
+
+class MusicConfigViewModel: ObservableObject {
     
     init() {
         searchTermObserver = $searchTerm
             .sink(receiveValue: requestSearchSuggestions)
     }
-    
-    // MARK: - Properties
     
     @Published var searchTerm = ""
     @Published var searchResponse: MusicCatalogSearchSuggestionsResponse?
@@ -28,7 +39,7 @@ class MusicConfigViewModel: ObservableObject {
     private var suggestedPlaylistsObserver: AnyCancellable?
     private var searchTermObserver: AnyCancellable?
     
-    // MARK: - Methods
+    @Environment(\.isSearching) private var isSearching
     
     /// Updates the recently viewed playlists when the MusicKit authorization status changes.
     func loadRecommendedPlaylists() {
@@ -39,6 +50,38 @@ class MusicConfigViewModel: ObservableObject {
                 await self.updatedRecommendedPlaylists(playlistsResponse.recommendations.first?.playlists)
             } catch {
                 print("Failed to load recommended playlists due to error: \(error)")
+            }
+        }
+    }
+    
+    func runSearch(searchScope: SearchScope) {
+        Task {
+            do {
+                
+                var searchRequest = MusicCatalogSearchRequest(term: searchTerm, types: [Artist.self])
+                searchRequest.limit = 10
+                let searchResponse = try await searchRequest.response()
+                
+                if let firstArtist = searchResponse.artists.first {
+                    
+                    let detailedArtist = try await firstArtist.with([.topSongs])
+                    
+                    //                    await addArtists(detailedArtist)
+                    //
+                    //                    if let topSongs = detailedArtist.topSongs {
+                    //                        var guesses: [APGuess] = []
+                    //                        for (index, song) in topSongs.enumerated() {
+                    //                            if index < 8 {
+                    //                                let guess = APGuess(title: song.title, song: song, pointValue: APGuess.pointValues[index])
+                    //                                guesses.append(guess)
+                    //                            }
+                    //                        }
+                    //
+                    //                        let category = Category(title: detailedArtist.name, clues: guesses)
+                    //                        return category
+                }
+            } catch {
+                print("Search request failed with error: \(error).")
             }
         }
     }
