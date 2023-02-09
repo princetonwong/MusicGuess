@@ -20,7 +20,7 @@ final class LanguageManager {
         if let appLanguage = UserDefaults.standard.string(forKey: "AppLanguage") {
             currentLanguage = appLanguage
         } else {
-            currentLanguage = Locale.current.languageCode!
+            currentLanguage = Locale.current.language.languageCode!.identifier
         }
     }
 

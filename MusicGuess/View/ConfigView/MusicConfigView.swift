@@ -34,15 +34,11 @@ struct MusicConfigView: View {
     
     @StateObject private var viewModel = MusicConfigViewModel()
     
-    @State private var searchScope: SearchScope = .topResults
-    
     @State private var musicItems: [PlayableMusicItem] = []
-    
     @State private var selectedMusicItems: [PlayableMusicItem] = []
-    
-    @Environment(\.isSearching) private var isSearching
-    
     @State private var destination: DetailDestination?
+    
+    @State private var searchSubmitted: Bool = false
     
     var body: some View {
         NavigationSplitView{} content: {
@@ -72,13 +68,12 @@ struct MusicConfigView: View {
                 switch destination {
                 case .preloaded: preloadedList
                 case .charts: EmptyView()
-                case .search: searchDetailList
+                case .search: searchDetailListView
                 case .none: EmptyView()
                 }
             }
         }
         .navigationSplitViewColumnWidth(600)
-//        .onSubmit(of: .search) {viewModel.runSearch(searchScope: searchScope)}
 //        .onChange(of: searchScope) {scope in viewModel.runSearch(searchScope: scope)}
         .onAppear {musicItems = musicManager.preloadedMusicItems}
     }
@@ -90,16 +85,6 @@ struct MusicConfigView: View {
         case .charts: Label("Charts", systemImage: "chart.bar.fill")
         case .search: Label("Search", systemImage: "magnifyingglass")
         }
-    }
-    
-    @ViewBuilder
-    private var aList: some View {
-        List {
-            NavigationLink {personalRecommendationsList} label: {Label("Charts", systemImage: "chart.bar.fill")}
-            NavigationLink {preloadedList} label: {Label("Preloaded", systemImage: "info.circle.fill")}
-            NavigationLink {searchDetailList} label: {Label("Search", systemImage: "magnifyingglass")}
-        }
-        .navigationTitle("Select Music")
     }
     
     @ViewBuilder
@@ -122,32 +107,76 @@ struct MusicConfigView: View {
     }
     
     @ViewBuilder
-    private var searchDetailList: some View {
-        List {
-            if let searchResponse = viewModel.searchResponse {
-                ForEach(searchResponse.suggestions, id: \.self) { suggestion in
-                    Text(suggestion.displayTerm)
-                        .onTapGesture {
-                            viewModel.searchTerm = suggestion.displayTerm
-                        }
-                }
-                
-                MusicItemSection(title: "Top Results", items: searchResponse.topResults) { topResult in
-                    topResult.multiSelectRow(selectedItems: $selectedMusicItems)
-                }
-                
+    private var searchDetailListView: some View {
+        SearchDetailList(selectedMusicItems: $selectedMusicItems, searchSubmitted: $searchSubmitted)
+            .searchable(text: $viewModel.searchTerm, placement: .navigationBarDrawer(displayMode: .always))
+            .onSubmit(of: .search) {
+                viewModel.requestSearchCatalog(for: viewModel.searchTerm)
+                searchSubmitted = true
             }
-        }
-        .searchable(text: $viewModel.searchTerm, placement: .navigationBarDrawer(displayMode: .always))
-        .searchScopes($searchScope) {
-            ForEach(SearchScope.allCases) { scope in
-                Text(scope.rawValue.capitalized).tag(scope)
+            .searchScopes($viewModel.searchScope) {
+                ForEach(SearchScope.allCases) { scope in
+                    Text(scope.rawValue.capitalized).tag(scope)
+                }
             }
-        }
-        .animation(.default, value: viewModel.recommendedPlaylists)
-        .animation(.default, value: viewModel.searchResponse)
+            .animation(.default, value: viewModel.recommendedPlaylists)
+            .animation(.default, value: viewModel.searchSuggestionsResponse)
+            .environmentObject(viewModel)
     }
     
+    struct SearchDetailList: View {
+        @Environment(\.isSearching) var isSearching
+        @Environment(\.dismissSearch) var dismissSearch
+        @EnvironmentObject var viewModel: MusicConfigViewModel
+        @Binding var selectedMusicItems: [PlayableMusicItem]
+        @Binding var searchSubmitted: Bool
+        
+        var body: some View {
+            List {
+                if isSearching {
+                    if !searchSubmitted {
+                        if let searchSuggestionsResponse = viewModel.searchSuggestionsResponse {
+                            // Suggested keywords
+                            ForEach(searchSuggestionsResponse.suggestions, id: \.self) { suggestion in
+                                Text(suggestion.displayTerm)
+                                    .onTapGesture {
+                                        viewModel.searchTerm = suggestion.displayTerm
+                                    }
+                            }
+                            
+                            MusicItemSection(title: "Top Results", items: searchSuggestionsResponse.topResults) { topResult in
+                                topResult.multiSelectRow(selectedItems: $selectedMusicItems)
+                                
+                            }
+                        }
+                    } else {
+                        if let searchResponse = viewModel.searchResponse {
+                            switch viewModel.searchScope {
+                            case .topResults:
+                                MusicItemSection(title: "Top Results", items: searchResponse.topResults) { topResult in
+                                    topResult.multiSelectRow(selectedItems: $selectedMusicItems)
+                                    
+                                }
+                            case .Albums:
+                                MusicItemSection(title: "Search Results", items: searchResponse.albums) { topResult in
+                                    topResult.multiSelectRow(selectedItems: $selectedMusicItems)
+                                }
+                            case .Playlists:
+                                MusicItemSection(title: "Search Results", items: searchResponse.playlists) { topResult in
+                                    topResult.multiSelectRow(selectedItems: $selectedMusicItems)
+                                }
+                            case .Artists:
+                                MusicItemSection(title: "Search Results", items: searchResponse.artists) { topResult in
+                                    topResult.multiSelectRow(selectedItems: $selectedMusicItems)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+            
+    }
     
     private func startGame() async {
         var categories: [Category] = []
@@ -177,6 +206,27 @@ struct MusicConfigView: View {
         //            }
     }
         }
+}
+
+extension Album {
+    @ViewBuilder
+    func multiSelectRow(selectedItems: Binding<[PlayableMusicItem]>) -> some View {
+        MultiSelectRow(item: PlayableMusicItem.album(self), selectedItems: selectedItems)
+    }
+}
+
+extension Playlist {
+    @ViewBuilder
+    func multiSelectRow(selectedItems: Binding<[PlayableMusicItem]>) -> some View {
+        MultiSelectRow(item: PlayableMusicItem.playlist(self), selectedItems: selectedItems)
+    }
+}
+
+extension Artist {
+    @ViewBuilder
+    func multiSelectRow(selectedItems: Binding<[PlayableMusicItem]>) -> some View {
+        MultiSelectRow(item: PlayableMusicItem.artist(self), selectedItems: selectedItems)
+    }
 }
 
 extension MusicCatalogSearchResponse.TopResult {
@@ -217,6 +267,3 @@ extension MusicCatalogSearchResponse.TopResult {
         }
     }
 }
-
-
-

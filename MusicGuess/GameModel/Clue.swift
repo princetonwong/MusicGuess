@@ -41,5 +41,5 @@ struct APGuess: Codable, Identifiable, Equatable {
     let song: Song
     
     var isDone: Bool = false
-    let pointValue: Int
+    var pointValue: Int
 }
